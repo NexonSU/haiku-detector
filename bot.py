@@ -41,10 +41,7 @@ def haikudetect(update: Update, context: CallbackContext) -> None:
 	# Checking for sallyables count in message
 	if (syllable_count_in_message < 16 or syllable_count_in_message > 18): return
 	# Appending author 
-	try:
-		haiku += "\n— " + update.message.from_user.first_name + " " + update.message.from_user.last_name
-	except:
-		haiku += "\n— @" + update.message.from_user.username
+	haiku += f"\n— {update.message.from_user.first_name} {update.message.from_user.last_name}"
 	# Posting haiku
 	update.message.reply_text(haiku)
 
