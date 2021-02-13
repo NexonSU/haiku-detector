@@ -18,6 +18,7 @@ def start(update: Update, context: CallbackContext) -> None:
 		update.message.reply_text('Hi! This bot automatically generates haiku/hokku in response to 17 syllable messages.')
 
 def haikudetect(update: Update, context: CallbackContext) -> None:
+	if not update.message.text: return
 	message = update.message.text
 	words = message.split()
 	# Checking words count
@@ -32,16 +33,19 @@ def haikudetect(update: Update, context: CallbackContext) -> None:
 	for word in words:
 		syllable_count += len(dic.inserted(word).split("-"))
 		haiku += word + " "
-		# First line must have 5 syllables, second 7 and third 4-6.
-		if (((syllable_count >= 5) and (line == 0)) or ((syllable_count >= 7) and (line == 1))): 
+		# First line must have 5 syllables and second 7.
+		if ((syllable_count >= 5 and line == 0) or (syllable_count >= 7 and line == 1)): 
 			haiku += "\n"
 			line += 1
+			syllable_count_in_message += syllable_count
+			syllable_count = 0
+		if (line == 2):
 			syllable_count_in_message += syllable_count
 			syllable_count = 0
 	# Checking for sallyables count in message
 	if (syllable_count_in_message < 16 or syllable_count_in_message > 18): return
 	# Appending author 
-	haiku += f"\n— {update.message.from_user.first_name} {update.message.from_user.last_name}"
+	haiku += f"\n\n— {update.message.from_user.first_name} {update.message.from_user.last_name}"
 	# Posting haiku
 	update.message.reply_text(haiku)
 
