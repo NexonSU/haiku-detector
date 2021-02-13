@@ -32,8 +32,8 @@ def haikudetect(update: Update, context: CallbackContext) -> None:
 	for word in words:
 		syllable_count += len(dic.inserted(word).split("-"))
 		haiku += word + " "
-		# First line must have 5 syllables, second 7 and third 5.
-		if (((syllable_count >= 5) and (line % 2 == 0)) or ((syllable_count >= 7) and (line % 2 != 0))): 
+		# First line must have 5 syllables, second 7 and third 4-6.
+		if (((syllable_count >= 5) and (line == 0)) or ((syllable_count >= 7) and (line == 1))): 
 			haiku += "\n"
 			line += 1
 			syllable_count_in_message += syllable_count
