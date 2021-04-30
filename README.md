@@ -1,6 +1,6 @@
 # haiku-detector
 This telegram bot automatically generates haiku/hokku in response to 17 syllable messages.
-## Instalation
+## Installation
 ```bash
 cd <your script path>
 wget https://github.com/NexonSU/haiku-detector/archive/main.zip
